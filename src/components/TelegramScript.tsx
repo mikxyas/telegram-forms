@@ -24,13 +24,14 @@ export default function TelegramScript({}: Props) {
                     if(window.Telegram?.WebApp?.platform == 'unknown') {
                         setIsTelegramMiniApp(false)
                     }else{
+                        setThemeStore(window.Telegram?.WebApp?.themeParams)
+
                         const validTgPlatform =  checkHashValidity(window.Telegram?.WebApp?.initData)
                         if(!validTgPlatform) return
                         setIsTelegramMiniApp(true)
                         // login the user and get the users forms
                         const userForms = await getUserData(ExtractTelegramId(window.Telegram?.WebApp?.initData).toString()) 
                         setUsersForms(userForms)
-                        setThemeStore(window.Telegram?.WebApp?.themeParams)
                         setUserData(window.Telegram?.WebApp?.initDataUnsafe?.user)
                         setTelegramId(ExtractTelegramId(window.Telegram?.WebApp?.initData))
                         setInitData(window.Telegram?.WebApp?.initData)

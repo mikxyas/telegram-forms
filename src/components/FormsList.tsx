@@ -5,14 +5,56 @@ import Text from './Text'
 import Link from 'next/link'
 import Button from './Button'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { ChevronRight, ChevronsLeftRight, Edit, Edit2, Edit2Icon, Edit3 } from 'lucide-react'
+import { database } from '@/utils/appwrite/Appwrite'
 
 type Props = {}
 
 export default function FormsList({}: Props) {
 
     const router = useRouter()
-    const {scriptLoaded, usersForms} = useStore(state=>state)
+    const { scriptLoaded, usersForms, setUsersForms, themeStore } = useStore(state => state)
     // console.log(scriptLoaded)
+
+    async function closeSurvey(id: string) {
+        setUsersForms(usersForms.map((form: any) => {
+            if (form.$id === id) {
+                form.isClosed = true
+            }
+            return form
+        }))
+        const resp = await database.updateDocument('66a0bb690022ca66f9c3', '66a0bb9e0034dbfdde6d', id, { isClosed: true })
+        // if it fails roll back the update 
+        // console.log(resp)
+        if (!resp) setUsersForms(usersForms.map((form: any) => {
+            if (form.$id === id) {
+                form.isClosed = false
+            }
+            return form
+        }))
+
+        // update the usersForms
+
+    }
+
+    async function openSurvey(id: string) {
+        setUsersForms(usersForms.map((form: any) => {
+            if (form.$id === id) {
+                form.isClosed = false
+            }
+            return form
+        }))
+        const resp = await database.updateDocument('66a0bb690022ca66f9c3', '66a0bb9e0034dbfdde6d', id, { isClosed: false })
+        // if it fails roll back the update 
+        if (!resp) setUsersForms(usersForms.map((form: any) => {
+            if (form.$id === id) {
+                form.isClosed = true
+            }
+            return form
+        }))
+    }
+
     if(!scriptLoaded){
         return (
             <div className=''>
@@ -21,24 +63,43 @@ export default function FormsList({}: Props) {
         )
     }
 
+
+
     if(typeof window.Telegram === 'undefined') return (
         <div className=''>
             Not using telegram
         </div>
     )
-console.log(usersForms)
+    // console.log(usersForms)
   return (
-    <div>
+      <div className='px-3'>
        {usersForms.length > 0 && usersForms.map((survey: any) => {
                 return (
-                    <div key={survey.$id} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='h-56 flex flex-col rounded-lg px-3 py-2 mt-3 shadow-md'>
-                        <Link href={`/forms/edit/${survey.$id}`}>
-                            <Text  content={survey.title} tw='text-2xl font-bold'/>
-                            {/* <p>{survey.description}</p> */}
-                            <Text tw=' flex gap-1 items-center text-opacity-30' content={"33 responses"} />
-                          
-                        </Link>
-                        <Button tw='w-full rounded-lg mt-auto' title='Close Survey' action={() => router.push(`/forms/view/${survey.$id}`)} />
+                    <div key={survey.$id} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='flex flex-col rounded-lg px-3 py-2 mt-3 shadow-md'>
+                        <div className='flex justify-between '>
+                            <div>
+                                <Text content={survey.title} tw='text-xl ' />
+                            </div>
+                            <Link href={`/forms/edit/${survey.$id}`}>
+                                <Edit className='mt-1' size={19} color={themeStore.hint_color} />
+                            </Link>
+                        </div>
+                        <div className='flex justify-between py-3'>
+                            <div className='flex'>
+                                <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full' width={33} height={33} />
+                                <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full -ml-4' width={33} height={33} />
+                                <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full -ml-4' width={33} height={33} />
+                            </div>
+                            <Text tw=' flex gap-1 items-center text-opacity-30' content={"23 responses"} />
+                        </div>
+                        {survey.isClosed ?
+                            <div>
+                                <Button center={false} primary tw='w-full rounded-lg mb-1' title='Open Survey' action={() => openSurvey(survey.$id)} />
+                                <Button center={false} primary={false} tw='w-full  rounded-lg ' title='Archive Survey' action={() => closeSurvey(survey.$id)} />
+                            </div>
+                            : <Button center={false} primary tw='w-full rounded-lg mt-auto' title='Close Survey' action={() => closeSurvey(survey.$id)} />
+
+                        }
                     </div>
                 )
             }

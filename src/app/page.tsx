@@ -1,4 +1,4 @@
-"use client"
+
 import ArchivedComp from "@/components/ArchivedComp";
 import FormsList from "@/components/FormsList";
 import MainContainer from "@/components/MainContainer";
@@ -13,7 +13,7 @@ export default function Home(context: any) {
     <MainContainer>
       <div>
         {/* <h1 className="text-3xl font-bold text-center">Telegram Forms</h1> */}
-       <Text tw="px-3" content="Welcome to telegram forms a place where we"/>
+        {/* <Text tw="px-3" content="Welcome to telegram forms a place where we"/> */}
         <FormsList/>
       </div>
     <ArchivedComp/>
