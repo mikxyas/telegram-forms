@@ -231,7 +231,7 @@ export default function CreateForm({ }: Props) {
     }
 
     return (
-        <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 flex flex-col'>
+        <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2  flex flex-col'>
             <div className='mt-3'>
                 <div>
                     <input type='text' placeholder='Survey Title' value={surveyTitle} onChange={(e) => setSurveyTitle(e.currentTarget.value)} className=' border-b text-2xl border-gray-300 outline-none bg-transparent  px-2 py-3 w-full' />
@@ -308,7 +308,7 @@ export default function CreateForm({ }: Props) {
             </button>
             {/* <button onClick={() => createSurvey()} className='py-3 bg-orange-500 px-3  border border-gray-300 text-white font-bold w-full  self-center  fixed bottom-0'>Create Survey</button> */}
             {/* <Button tw={''} title='Add Form' action={addForm} /> */}
-            <Button tw={'w-full bottom-0 fixed'} title='Create Survey' action={createSurvey} />
+            <Button primary center tw={'w-full rounded-xl'} title='Create Survey' action={createSurvey} />
 
         </div>
     )

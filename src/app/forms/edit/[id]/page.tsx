@@ -18,7 +18,7 @@ export default function EditForm(context: any) {
     const [form, setForm] = React.useState([])
     const [structure, setStructure] = React.useState([])
     const router = useRouter()
-    const { usersForms, setUsersForms } = useStore(state => state)
+    const { usersForms, setUsersForms, themeStore } = useStore(state => state)
     // console.log(id)
 
     async function dedleteForm() {
@@ -40,12 +40,7 @@ export default function EditForm(context: any) {
             if (response) {
                 setUsersForms(usersForms.map((form: any) => {
                     if (form.$id == id) {
-                        return {
-                            ...form,
-                            structure: JSON.stringify(structure),
-                            title: form.title,
-                            description: form.description
-                        }
+                        return response
                     }
                     return form
                 }))
@@ -242,7 +237,7 @@ export default function EditForm(context: any) {
     }, [])
 
     return (
-        <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 flex flex-col pb-16'>
+        <div style={{ background: themeStore.bg_color, color: themeStore.text_color }} className='py-2 min-h-screen px-2 flex flex-col pb-16'>
             <div className='mt-3'>
                 <div>
                     <input type='text' placeholder='Survey Title' value={form.title} onChange={(e) => setForm({ ...form, title: e.currentTarget.value })} className=' border-b text-2xl border-gray-300 outline-none bg-transparent  px-2 py-3 w-full' />
@@ -253,12 +248,12 @@ export default function EditForm(context: any) {
             </div>
 
             {structure.map((form, index) => (
-                <div key={form.$id} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='mt-3  rounded-lg   px-4  py-3'>
+                <div key={form.$id} style={{ background: themeStore.secondary_bg_color }} className='mt-3  rounded-lg   px-4  py-3'>
                     {/* <p className='text-lg'>{form.title}</p> */}
                     <div className='flex justify-between'>
                         <input value={form.title} onChange={(e) => handleFormTitleChange(form.id, e.currentTarget.value)} type='text' className='border-b border-gray-300 outline-none  bg-transparent px-2 pb-2.5 py-1 w-full mt-2' placeholder='Question' />
                         {structure.length > 1 &&
-                            <X size={16} onClick={() => removeForm(form.id)} className='opacity-50 ml-auto' />
+                            <X size={26} onClick={() => removeForm(form.id)} className='opacity-80 -mt-2 right-3 absolute ' />
                         }
                     </div>
                     {form.type === 'short-answer' &&
@@ -295,9 +290,9 @@ export default function EditForm(context: any) {
                         </div>
                     }
                     <div>
-                        <select title='Form Type' onChange={(e) => changeTypeOfForm(form.id, e.currentTarget.value)} value={form.type} style={{ background: window.Telegram.WebApp.themeParams.section_bg_color, }} className=' rounded px-2  py-3 w-full mt-3 mb-3'>
-                            <option value='short-answer'>Short Answer</option>
-                            <option value='multiple-choice'>Multiple Choice</option>
+                        <select color='red' title='Form Type' onChange={(e) => changeTypeOfForm(form.id, e.currentTarget.value)} value={form.type} style={{ background: themeStore.section_bg_color, }} className=' rounded px-2 outline-none  py-3 w-full mt-3 mb-3'>
+                            <option style={{ background: themeStore.section_bg_color, }} value='short-answer'>Short Answer</option>
+                            <option style={{ background: themeStore.section_bg_color, }} value='multiple-choice'>Multiple Choice</option>
                             {/* <option value='number'>Number</option>
                             <option value='email'>Email</option>
                             <option value='date'>Date</option>
@@ -314,10 +309,10 @@ export default function EditForm(context: any) {
                     </div>
                 </div>
             ))}
-            <button onClick={addForm} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='py-3 px-3 rounded-full mb-16 self-end mt-3'>
+            <button onClick={addForm} style={{ background: themeStore.secondary_bg_color }} className='py-3 px-3 rounded-full mb-16 self-end mt-3'>
                 <Plus size={24} />
             </button>
-            <Button center primary title='Update' tw='w-full fixed bottom-0 ' action={() => updateForm()} />
+            <Button center primary title='Update' tw='w-full bottom-0' action={() => updateForm()} />
             {/* <Button title='Delete' tw='w-full fixed bottom-10 ' action={() => updateForm()} /> */}
         </div>
     )

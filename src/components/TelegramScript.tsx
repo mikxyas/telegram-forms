@@ -20,7 +20,7 @@ export default function TelegramScript({}: Props) {
                 strategy='afterInteractive'
                 onLoad={ async () => {
                 
-                    console.log(window.Telegram.WebApp.themeParams)
+                    // console.log(window.Telegram.WebApp.themeParams)
                     if(window.Telegram?.WebApp?.platform == 'unknown') {
                         setIsTelegramMiniApp(false)
                     }else{

@@ -38,6 +38,24 @@ export default function FormsList({}: Props) {
 
     }
 
+    async function archiveSurvey(id: string) {
+        setUsersForms(usersForms.map((form: any) => {
+            if (form.$id === id) {
+                form.isArchived = true
+            }
+            return form
+        }))
+        const resp = await database.updateDocument('66a0bb690022ca66f9c3', '66a0bb9e0034dbfdde6d', id, { isArchived: true })
+        // if it fails roll back the update 
+        if (!resp) setUsersForms(usersForms.map((form: any) => {
+            if (form.$id === id) {
+                form.isArchived = true
+            }
+            return form
+        }))
+    }
+
+
     async function openSurvey(id: string) {
         setUsersForms(usersForms.map((form: any) => {
             if (form.$id === id) {
@@ -71,9 +89,23 @@ export default function FormsList({}: Props) {
         </div>
     )
     // console.log(usersForms)
+    if (typeof usersForms == 'undefined') {
+        return (
+            <div className='h-screen flex items-center justify-center'>
+                <Text content='loading' tw='text-xl text-center mt-4' />
+            </div>
+        )
+    }
+    if (usersForms.filter((form: any) => form.isArchived == false).length == 0) {
+        return (
+            <div className='h-screen flex items-center justify-center'>
+                <Text content='No forms created' tw='text-xl text-center mt-4' />
+            </div>
+        )
+    }
   return (
       <div className='px-3'>
-       {usersForms.length > 0 && usersForms.map((survey: any) => {
+          {usersForms.filter((form: any) => form.isArchived == false).map((survey: any) => {
                 return (
                     <div key={survey.$id} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='flex flex-col rounded-lg px-3 py-2 mt-3 shadow-md'>
                         <div className='flex justify-between '>
@@ -95,7 +127,7 @@ export default function FormsList({}: Props) {
                         {survey.isClosed ?
                             <div>
                                 <Button center={false} primary tw='w-full rounded-lg mb-1' title='Open Survey' action={() => openSurvey(survey.$id)} />
-                                <Button center={false} primary={false} tw='w-full  rounded-lg ' title='Archive Survey' action={() => closeSurvey(survey.$id)} />
+                                <Button center={false} primary={false} tw='w-full  rounded-lg ' title='Archive Survey' action={() => archiveSurvey(survey.$id)} />
                             </div>
                             : <Button center={false} primary tw='w-full rounded-lg mt-auto' title='Close Survey' action={() => closeSurvey(survey.$id)} />
 
