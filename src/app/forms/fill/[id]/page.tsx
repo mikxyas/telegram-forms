@@ -254,8 +254,8 @@ export default function Fill(context: any) {
                 </div>
             ))}
             {modifyResponse
-                ? <Button center primary title='Update' tw='w-full  mx-2 rounded-lg' action={() => updateResponse()} />
-                : <Button center primary title='Submit' tw='w-full  mx-2 rounded-lg' action={() => submitForm()} />
+                ? <Button center primary title='Update' tw='w-full  rounded-lg' action={() => updateResponse()} />
+                : <Button center primary title='Submit' tw='w-full   rounded-lg' action={() => submitForm()} />
             }
         </div>
     )
