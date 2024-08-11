@@ -218,11 +218,11 @@ export default function Fill(context: any) {
     }
 
     return (
-        <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 flex flex-col pb-16'>
+        <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 flex flex-col '>
             <p className='text-2xl mb-1'>{survey.title}</p>
             <p className='text-sm opacity-55 mb-4'>{survey.description}</p>
             {form.map((form: any, index) => (
-                <div key={index} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='mt-3  rounded-lg  mb-8 px-4  py-3'>
+                <div key={index} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='mt-3  rounded-lg  mb-16 px-4  py-3'>
                     <p className='text-lg'>{form.title}</p>
                     {form.type === 'short-answer' &&
                         <div className='px-3'>
