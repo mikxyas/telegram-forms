@@ -194,7 +194,7 @@ export default function Fill(context: any) {
         )
     }
     if (loading) {
-        return (<div className='h-screen flex bg-transparent items-center justify-center'>
+        return (<div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='h-screen flex bg-transparent items-center justify-center'>
             <Text content='...fetching' tw='text-xl text-center mt-4' />
         </div>)
     }
