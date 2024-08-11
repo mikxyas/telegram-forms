@@ -111,7 +111,7 @@ export default function Page(context: any) {
                             <div className='px-3'>
                                 {/* <input type='text' value={form.answer} disabled className='border-b mt-3 mb-1 border-gray-300 outline-none bg-transparent px-2 py-1 w-full ' placeholder='Short Answer' /> */}
 
-                                {form.answer.length == 0
+                                {typeof form.answer == 'undefined' || form.answer == '' 
                                     ? <p className='px-2 py-1 mt-2 w-full mb-1 text-center text-red-200'>No Response </p>
                                     : <p className='px-2 py-1 mt-2 w-full mb-1'>{form.answer} </p>
                                 }
