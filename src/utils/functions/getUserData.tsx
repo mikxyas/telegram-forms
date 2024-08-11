@@ -3,7 +3,9 @@ import { account, database, functions } from "../appwrite/Appwrite"
 import { setStorageItem } from "./setStorageItem"
 import { getStorageItem } from "./getStorageItem";
 
-export async function getUserData(telegram_id: string) {    
+
+
+export async function getUserData(telegram_id: string) { 
     // if session already exists just fetch the forms direcrly
     try {
         const user = await account.get();
@@ -55,10 +57,19 @@ export async function getUserData(telegram_id: string) {
         // else {
         console.log('getting session and forms')
 
+        // just for now 
+        const userData = {
+            telegram_id: telegram_id,
+            name: window.Telegram.WebApp.initDataUnsafe.user?.first_name + ' ' + window.Telegram.WebApp.initDataUnsafe.user?.last_name,
+            username: window.Telegram.WebApp.initDataUnsafe.user?.username,
+            profile_pic: window.Telegram.WebApp.initDataUnsafe.user?.photo_url,
+        }
+
         const promise = await functions.createExecution(
             '66a4ab4e0026fb046d0c',
-            telegram_id,
+            JSON.stringify(userData),
         )
+        console.log(promise)
         const resp = JSON.parse(promise.responseBody)
         console.log(resp)
         if (resp.status === 'success') {
@@ -72,12 +83,6 @@ export async function getUserData(telegram_id: string) {
             })
 
                 return resp.data.forms
-            }
-
-
+        }
     }
-
-
-
-
 }

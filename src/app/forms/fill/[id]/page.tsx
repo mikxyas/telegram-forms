@@ -91,12 +91,13 @@ export default function Fill(context: any) {
             {
                 'form': id,
                 'structure': JSON.stringify(form),
-                'profiles': extractTelegramId()
+                'profiles': extractTelegramId(),
+
             }
         ).then((response) => {
             setFormAlreadyFilled(true)
             console.log(response)
-            setForm(JSON.parse(response.documents[0].structure))
+            setForm(JSON.parse(response.structure))
         })
     }
 
@@ -143,7 +144,7 @@ export default function Fill(context: any) {
         })
     }
 
-    console.log(form)
+    // console.log(window.Telegram.WebApp.initDataUnsafe)
 
     useEffect(() => {
         const tg = window.Telegram.WebApp;
@@ -188,19 +189,23 @@ export default function Fill(context: any) {
     if (loading) {
         return <div>Loading...</div>
     }
-    if (formIsClosed) {
-        return (
-            <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 justify-center items-center flex flex-col pb-16'>
-                <Text content='This Form is no longer accepting responses' tw='' />
-                {/* <Button tw='rounded-lg mt-3' center={false} primary title='Modify Response' action={() => { }} /> */}
-            </div>
-        )
-    }
+    // if (formIsClosed) {
+    //     return (
+    //         <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 justify-center items-center flex flex-col pb-16'>
+    //             <Text content='This Form is no longer accepting responses' tw='' />
+    //             {/* <Button tw='rounded-lg mt-3' center={false} primary title='Modify Response' action={() => { }} /> */}
+    //         </div>
+    //     )
+    // }
     if (formAlreadyFilled && !modifyResponse) {
         return (
             <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 justify-center items-center flex flex-col pb-16'>
                 <Text content='Your response has been recorded' tw='' />
-                <Button tw='rounded-lg mt-3' center={false} primary title='Modify Response' action={() => setModifyResponse(true)} />
+                {formIsClosed
+                    ? <Text content='This Form is no longer accepting responses' tw='' />
+                    : <Button tw='rounded-lg mt-3' center={false} primary title='Modify Response' action={() => setModifyResponse(true)} />
+                }
+
             </div>
         )
     }

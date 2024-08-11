@@ -302,7 +302,7 @@ export default function EditForm(context: any) {
                         </select>
                     </div>
 
-                    <div className='flex items-center mt-1 text-red-100 gap-3 justify-end'>
+                    <div className='flex items-center mt-1  gap-3 justify-end'>
                         <p>Required</p>
                         <input size={33} checked={form.is_required} onChange={() => updateIsRequired(form.id)} type='checkbox' className='outline-none ' />
                         {/* <input size={33} checked={form.is_required} onChange={() => updateIsRequired(form.id)} type='checkbox' className='outline-none ' /> */}
