@@ -194,7 +194,9 @@ export default function Fill(context: any) {
         )
     }
     if (loading) {
-        return <div>Loading...</div>
+        return (<div className='h-screen flex bg-transparent items-center justify-center'>
+            <Text content='...fetching' tw='text-xl text-center mt-4' />
+        </div>)
     }
     // if (formIsClosed) {
     //     return (
