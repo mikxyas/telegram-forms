@@ -93,7 +93,7 @@ export default function Page(context: any) {
     }
 
     return (
-        <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 flex flex-col pb-16'>
+        <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 flex flex-col pb-19'>
 
             <div className='px-3 mb-10'>
                 {/* <Text content='Response' tw='' /> */}
@@ -105,7 +105,7 @@ export default function Page(context: any) {
                 ))} */}
 
                 {JSON.parse(rawResponses[index].structure).map((form: any, index: number) => (
-                    <div key={index} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='mt-3  rounded-lg   px-4  py-3'>
+                    <div key={index} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='mt-1.5  rounded-lg   px-4  py-3'>
                         <p className='text-lg'>{form.title}</p>
                         {form.type === 'short-answer' &&
                             <div className='px-3'>
