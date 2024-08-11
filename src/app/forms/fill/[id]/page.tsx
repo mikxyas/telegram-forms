@@ -7,10 +7,11 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useStore } from '@/zustand/store'
 import Text from '@/components/Text'
+import { useToast } from '@/components/ui/use-toast'
 
 export default function Fill(context: any) {
     const { id } = context.params
-
+    const { toast } = useToast()
     const [loading, setLoading] = useState(true)
     const [form, setForm] = useState([])
     const [doesntExist, setDoesntExist] = useState(false)
@@ -30,9 +31,9 @@ export default function Fill(context: any) {
     function extractTelegramId() {
         const unextracted = window.Telegram.WebApp.initData
         const extracted = decodeURIComponent(unextracted)
-        console.log(extracted)
+        // console.log(extracted)
         const telegram_id: number = JSON.parse(extracted.split('&')[0].split('=')[1]).id
-        console.log(telegram_id)
+        // console.log(telegram_id)
         return telegram_id.toString()
     }
 
@@ -77,6 +78,9 @@ export default function Fill(context: any) {
                 structure: JSON.stringify(form)
             }
         ).then(() => {
+            toast({
+                title: 'Response Updated',
+            })
             setModifyResponse(false)
         }).catch((e) => {
             console.log(e)
@@ -97,6 +101,9 @@ export default function Fill(context: any) {
         ).then((response) => {
             setFormAlreadyFilled(true)
             console.log(response)
+            toast({
+                title: 'Response Sumbitted',
+            })
             setForm(JSON.parse(response.structure))
         })
     }
@@ -228,8 +235,8 @@ export default function Fill(context: any) {
                             <div>
                                 {form.options.map((option, index) => (
                                     <div className='flex  mt-1 items-center ' key={index}>
-                                        <div className='gap-1 flex'>
-                                            <input checked={option.ischecked} onChange={() => updateMultipleChoice(form.id, option.id)} type='checkbox' className='border-b  border-gray-300 outline-none bg-transparent rounded px-2 py-1' />
+                                        <div className='gap-1 flex items-center cursor-pointer' onClick={() => updateMultipleChoice(form.id, option.id)}>
+                                            <input checked={option.ischecked} type='checkbox' className='border-b  border-gray-300 outline-none bg-transparent rounded px-2 py-1' />
                                             <p className='outline-none  rounded px-2 py-1' >{option.title}</p>
                                         </div>
                                     </div>

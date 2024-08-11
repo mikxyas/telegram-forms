@@ -6,21 +6,26 @@ import Link from 'next/link'
 import Button from './Button'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Box, ChevronRight, ChevronsLeftRight, Edit, Edit2, Edit2Icon, Edit3, NotebookPen } from 'lucide-react'
+import { Box, ChevronRight, ChevronsLeftRight, Copy, Edit, Edit2, Edit2Icon, Edit3, NotebookPen } from 'lucide-react'
 import { database } from '@/utils/appwrite/Appwrite'
+import { useToast } from './ui/use-toast'
 
 type Props = {}
 
 export default function FormsList({}: Props) {
 
     const router = useRouter()
+    const { toast } = useToast()
     const { scriptLoaded, usersForms, setUsersForms, themeStore } = useStore(state => state)
     // console.log(scriptLoaded)
     const handleCopyLink = (id: any) => {
         const surveyLink = `https://t.me/Formfortelegrambot/TelegramForms?startapp=${id}`;
         navigator.clipboard.writeText(surveyLink)
             .then(() => {
-                console.log('Survey link copied to clipboard!');
+                toast({
+                    title: 'Copied',
+                    description: 'Share it accross Telegram'
+                })
                 // Optionally, show a success message or toast notification here
             })
             .catch((error) => {
@@ -35,6 +40,10 @@ export default function FormsList({}: Props) {
             }
             return form
         }))
+        toast({
+            title: 'Survey Closed',
+            description: 'No longer accepting responses'
+        })
         const resp = await database.updateDocument('66a0bb690022ca66f9c3', '66a0bb9e0034dbfdde6d', id, { isClosed: true })
         // if it fails roll back the update 
         // console.log(resp)
@@ -56,6 +65,10 @@ export default function FormsList({}: Props) {
             }
             return form
         }))
+        toast({
+            title: 'Survey saved to archives',
+            // description: 'No longer accepting responses'
+        })
         const resp = await database.updateDocument('66a0bb690022ca66f9c3', '66a0bb9e0034dbfdde6d', id, { isArchived: true })
         // if it fails roll back the update 
         if (!resp) setUsersForms(usersForms.map((form: any) => {
@@ -74,6 +87,10 @@ export default function FormsList({}: Props) {
             }
             return form
         }))
+        toast({
+            title: 'Survey Opened',
+            description: 'Accepting responses'
+        })
         const resp = await database.updateDocument('66a0bb690022ca66f9c3', '66a0bb9e0034dbfdde6d', id, { isClosed: false })
         // if it fails roll back the update 
         if (!resp) setUsersForms(usersForms.map((form: any) => {
@@ -141,7 +158,7 @@ export default function FormsList({}: Props) {
                                             {survey.response.map((resp: any, index: number) => (
                                                 <div>
                                                     {resp?.profiles?.profile_pic == null
-                                                        ? <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full' width={33} height={33} />
+                                                        ? <Image src='/profile.webp' alt="Vercel Logo" className={`rounded-full`} width={33} height={33} />
                                                         : <Image src={resp.profiles.profile_pic} alt="Vercel Logo" className='rounded-full' width={33} height={33} />
                                                     }
                                                 </div>
@@ -161,8 +178,9 @@ export default function FormsList({}: Props) {
                             </div>
                             :
                             <div className='flex w-full justify-between'>
+                                <button className='rounded-lg px-3 py-1.5 gap-2 flex items-center justify-end ' onClick={() => handleCopyLink(survey.$id)} ><Text content='Copy Link' tw='text-base' /> <Copy size={20} color={themeStore.text_color} /></button>
+
                                 <Button center={false} primary tw='w-full rounded-lg mt-auto mb-1' title='Close Survey' action={() => closeSurvey(survey.$id)} />
-                                <Button center={false} primary tw='mr-auto rounded-lg mt-auto' title='Copy Link' action={() => handleCopyLink(survey.$id)} />
                             </div>
                         }
                     </div>

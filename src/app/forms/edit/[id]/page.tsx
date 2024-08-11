@@ -10,6 +10,7 @@ import Button from '@/components/Button'
 import { Plus, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useStore } from '@/zustand/store'
+import { useToast } from '@/components/ui/use-toast'
 
 type Props = {}
 
@@ -18,6 +19,7 @@ export default function EditForm(context: any) {
     const [form, setForm] = React.useState([])
     const [structure, setStructure] = React.useState([])
     const router = useRouter()
+    const { toast } = useToast()
     const { usersForms, setUsersForms, themeStore } = useStore(state => state)
     // console.log(id)
 
@@ -44,6 +46,10 @@ export default function EditForm(context: any) {
                     }
                     return form
                 }))
+                toast({
+                    title: 'Form Updated',
+                    // description: 'No longer accepting responses'
+                })
                 router.push('/')
             } else {
                 console.log('error updating the form')
@@ -180,9 +186,9 @@ export default function EditForm(context: any) {
     function extractTelegramId() {
         const unextracted = window.Telegram.WebApp.initData
         const extracted = decodeURIComponent(unextracted)
-        console.log(extracted)
+        // console.log(extracted)
         const telegram_id: number = JSON.parse(extracted.split('&')[0].split('=')[1]).id
-        console.log(telegram_id)
+        // console.log(telegram_id)
         return telegram_id.toString()
     }
 

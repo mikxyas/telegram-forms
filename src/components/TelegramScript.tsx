@@ -17,7 +17,7 @@ export default function TelegramScript({ children }: Props) {
 
     
     return (
-        <div>
+        <main>
             <Script
                 src="https://telegram.org/js/telegram-web-app.js"
                 strategy='afterInteractive'
@@ -38,19 +38,15 @@ export default function TelegramScript({ children }: Props) {
                         setUserData(window.Telegram?.WebApp?.initDataUnsafe?.user)
                         setTelegramId(ExtractTelegramId(window.Telegram?.WebApp?.initData))
                         setInitData(window.Telegram?.WebApp?.initData)
-                        console.log(window.Telegram?.WebApp?.platform)
-                        console.log('Telegram loaded')
-                        console.log(window.Telegram?.WebApp?.initDataUnsafe?.user)
+                        // console.log(window.Telegram?.WebApp?.platform)
+                        // console.log('Telegram loaded')
+                        // console.log(window.Telegram?.WebApp?.initDataUnsafe?.user)
                     }
                     setScriptLoaded(true)
                 }}
             />
-            {loaded && <div>
-                {children}
-            </div>
-
-            }
-        </div>
+            {loaded && children}
+        </main>
 
   )
 }

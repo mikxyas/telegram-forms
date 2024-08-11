@@ -15,7 +15,7 @@ import React, { useEffect, useState } from 'react'
 export default function page(context: any) {
     const id = context.params.id
     const [rawResponses, setRawResponses] = React.useState<any[]>([])
-    const { themeStore } = useStore(state => state)
+    const { themeStore, usersForms } = useStore(state => state)
     const [laoding, setLoading] = useState(true)
     const [index, setIndex] = useState(0)
     const [listViewMode, setListViewMode] = useState(false)
@@ -23,6 +23,8 @@ export default function page(context: any) {
 
     // fetch the responses of the form with the id
     function getResponses() {
+        // check if userData is empty 
+        if (usersForms.length == 0) {
         database.listDocuments('66a0bb690022ca66f9c3',
             '66a0bb9e0034dbfdde6d',
             [
@@ -36,6 +38,11 @@ export default function page(context: any) {
             setLoading(false)
             console.log(e)
         })
+        } else {
+            // console.log(usersForms)
+            setRawResponses(usersForms.filter((form: any) => form.$id == id)[0].response)
+            setLoading(false)
+        }
 
     }
 
@@ -117,7 +124,7 @@ export default function page(context: any) {
                                     {form.options.map((option, index) => (
                                         <div className='flex  mt-1 items-center ' key={index}>
                                             <div className='gap-1 flex'>
-                                                <input checked={option.ischecked} disabled type='checkbox' className='border-b  border-gray-300 outline-none bg-transparent rounded px-2 py-1' />
+                                                <input checked={option.ischecked} type='checkbox' className='border-b  border-gray-300 outline-none bg-transparent rounded px-2 py-1' />
                                                 <p className='outline-none  rounded px-2 py-1' >{option.title}</p>
                                             </div>
                                         </div>

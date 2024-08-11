@@ -10,7 +10,7 @@ export async function getUserData(telegram_id: string) {
     try {
         const user = await account.get();
         if (user) {
-            console.log('session detected so getting forms')
+            // console.log('session detected so getting forms')
             const forms = await database.listDocuments(
                 "66a0bb690022ca66f9c3",
                 '66a0bb9e0034dbfdde6d',                // Collection ID
@@ -18,7 +18,7 @@ export async function getUserData(telegram_id: string) {
                     Query.equal("creator", telegram_id)
                 ]          // Document ID
             );
-            console.log(forms)
+            // console.log(forms)
             return forms.documents
         }
     } catch (e) {
@@ -69,9 +69,9 @@ export async function getUserData(telegram_id: string) {
             '66a4ab4e0026fb046d0c',
             JSON.stringify(userData),
         )
-        console.log(promise)
+        // console.log(promise)
         const resp = JSON.parse(promise.responseBody)
-        console.log(resp)
+        // console.log(resp)
         if (resp.status === 'success') {
             const secret = resp.secret
             setStorageItem('secret', secret)
@@ -79,7 +79,7 @@ export async function getUserData(telegram_id: string) {
                 telegram_id.toString(),
                 secret,
             ).then((res) => {
-                console.log(res)
+                // console.log(res)
             })
 
                 return resp.data.forms

@@ -7,12 +7,14 @@ import { Plus, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 import React, { useEffect, useState } from 'react'
+import { useToast } from '@/components/ui/use-toast'
 type Props = {}
 
 export default function CreateForm({ }: Props) {
 
 
     const router = useRouter()
+    const { toast } = useToast()
     const [forms, setForms] = useState([
         {
             id: 1,
@@ -52,9 +54,9 @@ export default function CreateForm({ }: Props) {
     function extractTelegramId() {
         const unextracted = window.Telegram.WebApp.initData
         const extracted = decodeURIComponent(unextracted)
-        console.log(extracted)
+        // console.log(extracted)
         const telegram_id: number = JSON.parse(extracted.split('&')[0].split('=')[1]).id
-        console.log(telegram_id)
+        // console.log(telegram_id)
         return telegram_id.toString()
     }
 
@@ -74,6 +76,10 @@ export default function CreateForm({ }: Props) {
 
         promise.then(function (response) {
             router.push('/')
+            toast({
+                title: 'Form Created',
+                // description: 'No longer accepting responses'
+            })
             setUsersForms([...usersForms, response])
             console.log(response);
         }, function (error) {
