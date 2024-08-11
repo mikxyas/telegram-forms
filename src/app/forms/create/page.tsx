@@ -18,6 +18,7 @@ export default function CreateForm({ }: Props) {
             id: 1,
             title: 'Question',
             type: 'short-answer',
+            answer: '',
             is_required: false,
             options: [
                 {
@@ -31,6 +32,7 @@ export default function CreateForm({ }: Props) {
             id: 2,
             title: 'Question',
             type: 'multiple-choice',
+            answer: '',
             is_required: false,
             options: [
                 {
@@ -187,6 +189,7 @@ export default function CreateForm({ }: Props) {
                     id: prevForms.length + 1,
                     title: 'Question',
                     type: 'short-answer',
+                    answer: '',
                     is_required: false,
                     options: [
                         {

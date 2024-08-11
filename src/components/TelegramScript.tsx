@@ -7,19 +7,22 @@ import { useStore } from '@/zustand/store'
 import Script from 'next/script'
 import React from 'react'
 
-type Props = {}
+type Props = {
+    children: React.ReactNode
+}
 
-export default function TelegramScript({}: Props) {
+export default function TelegramScript({ children }: Props) {
     const {setIsTelegramMiniApp, setScriptLoaded, setTelegramId, setUserData, setInitData, setThemeStore,setUsersForms} = useStore(state=>state)
-  
+    const [loaded, setLoaded] = React.useState(false)
 
     
     return (
-        <Script
+        <div>
+            <Script
                 src="https://telegram.org/js/telegram-web-app.js"
                 strategy='afterInteractive'
                 onLoad={ async () => {
-                
+                    setLoaded(true)
                     // console.log(window.Telegram.WebApp.themeParams)
                     if(window.Telegram?.WebApp?.platform == 'unknown') {
                         setIsTelegramMiniApp(false)
@@ -42,5 +45,12 @@ export default function TelegramScript({}: Props) {
                     setScriptLoaded(true)
                 }}
             />
+            {loaded && <div>
+                {children}
+            </div>
+
+            }
+        </div>
+
   )
 }

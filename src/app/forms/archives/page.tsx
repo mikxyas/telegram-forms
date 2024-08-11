@@ -89,7 +89,7 @@ export default function ({ }: Props) {
 
                             {/* <Button center={false} primary tw='w-full rounded-lg mb-1' title='Open Survey' action={() => openSurvey(survey.$id)} /> */}
                             <Button center={false} primary tw='w-full mb-1 rounded-lg ' title='Unarchive Survey' action={() => unarchiveSurvey(survey.$id)} />
-                            <Button center={false} primary={false} tw='w-full rounded-lg ' title='Delete Survey' action={() => { }} />
+                            <Button center={false} primary={false} tw='w-full rounded-lg ' title='Delete Survey Data' action={() => { }} />
                         </div>
                     )
                 }

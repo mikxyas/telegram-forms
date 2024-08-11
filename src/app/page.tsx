@@ -2,12 +2,19 @@
 import ArchivedComp from "@/components/ArchivedComp";
 import FormsList from "@/components/FormsList";
 import MainContainer from "@/components/MainContainer";
-import Text from "@/components/Text";
-import { Archive } from "lucide-react";
 
+import { redirect } from "next/navigation";
 export default function Home(context: any) {
-  // console.log(context)
+  console.log(context)
 
+  const tgWebAppStart = context.searchParams.tgWebAppStartParam
+  console.log(tgWebAppStart)
+  if (tgWebAppStart) {
+    const form_link = '/forms/fill/' + tgWebAppStart
+    console.log(form_link)
+    redirect(form_link)
+    // router.push(form_link)
+  }
 // console.log(window.Telegram.WebApp.initDataUnsafe.user)
   return (
     <MainContainer>

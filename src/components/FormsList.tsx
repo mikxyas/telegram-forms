@@ -126,7 +126,7 @@ export default function FormsList({}: Props) {
                         </div>
                         {survey.isClosed ?
                             <div>
-                                <Button center={false} primary tw='w-full rounded-lg mb-1' title='Open Survey' action={() => openSurvey(survey.$id)} />
+                                <Button center={false} primary tw='w-full rounded-lg mb-1' title='Reopen Survey' action={() => openSurvey(survey.$id)} />
                                 <Button center={false} primary={false} tw='w-full  rounded-lg ' title='Archive Survey' action={() => archiveSurvey(survey.$id)} />
                             </div>
                             : <Button center={false} primary tw='w-full rounded-lg mt-auto' title='Close Survey' action={() => closeSurvey(survey.$id)} />

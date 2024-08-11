@@ -17,8 +17,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <TelegramScript />
-      <body className={inter.className}>{children}</body>
+
+      <body className={inter.className}>
+        <TelegramScript >
+          {children}
+        </TelegramScript>
+      </body>
     </html>
   );
 }
