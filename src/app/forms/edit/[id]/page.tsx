@@ -255,7 +255,7 @@ export default function EditForm(context: any) {
             </div>
 
             {structure.map((form: any, index) => (
-                <div key={form.$id} style={{ background: themeStore.secondary_bg_color }} className='mt-3  rounded-lg   px-4  py-3'>
+                <div key={index} style={{ background: themeStore.secondary_bg_color }} className='mt-3  rounded-lg   px-4  py-3'>
                     {/* <p className='text-lg'>{form.title}</p> */}
                     <div className='flex justify-between'>
                         <input value={form.title} onChange={(e) => handleFormTitleChange(form.id, e.currentTarget.value)} type='text' className='border-b border-gray-300 outline-none  bg-transparent px-2 pb-2.5 py-1 w-full mt-2' placeholder='Question' />

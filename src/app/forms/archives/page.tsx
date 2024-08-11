@@ -67,9 +67,9 @@ export default function Archive({ }: Props) {
     return (
         <MainContainer>
             <div className='px-2'>
-                {usersForms.filter((form: any) => form.isArchived == true).map((survey: any) => {
+                {usersForms.filter((form: any) => form.isArchived == true).map((survey: any, index: number) => {
                     return (
-                        <div key={survey.$id} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='flex flex-col rounded-lg px-3 py-2 mt-3 shadow-md'>
+                        <div key={index} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='flex flex-col rounded-lg px-3 py-2 mt-3 shadow-md'>
                             <div className='flex justify-between '>
                                 <div>
                                     <Text content={survey.title} tw='text-xl ' />

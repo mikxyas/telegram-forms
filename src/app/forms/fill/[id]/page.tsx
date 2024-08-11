@@ -222,7 +222,7 @@ export default function Fill(context: any) {
             <p className='text-2xl mb-1'>{survey.title}</p>
             <p className='text-sm opacity-55 mb-4'>{survey.description}</p>
             {form.map((form: any, index) => (
-                <div key={form.id} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='mt-3  rounded-lg   px-4  py-3'>
+                <div key={index} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='mt-3  rounded-lg   px-4  py-3'>
                     <p className='text-lg'>{form.title}</p>
                     {form.type === 'short-answer' &&
                         <div className='px-3'>

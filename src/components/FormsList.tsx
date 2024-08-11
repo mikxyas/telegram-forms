@@ -133,9 +133,9 @@ export default function FormsList({}: Props) {
     }
   return (
       <div className='px-3 '>
-          {usersForms.filter((form: any) => form.isArchived == false).map((survey: any) => {
+          {usersForms.filter((form: any) => form.isArchived == false).map((survey: any, index: number) => {
                 return (
-                    <div key={survey.$id} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='flex flex-col rounded-lg px-3 py-2 mt-3 shadow-md'>
+                    <div key={index} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='flex flex-col rounded-lg px-3 py-2 mt-3 shadow-md'>
                         <Link className=' cursor-pointer' href={`/forms/dashboard/${survey.$id}`}> 
                         <div className='flex justify-between '>
                             <div>
@@ -156,7 +156,7 @@ export default function FormsList({}: Props) {
                                         <div className='flex'>
 
                                             {survey.response.map((resp: any, index: number) => (
-                                                <div>
+                                                <div key={index}>
                                                     {resp?.profiles?.profile_pic == null
                                                         ? <Image src='/profile.webp' alt="Vercel Logo" className={`rounded-full`} width={33} height={33} />
                                                         : <Image src={resp.profiles.profile_pic} alt="Vercel Logo" className='rounded-full' width={33} height={33} />
