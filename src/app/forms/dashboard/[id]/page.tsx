@@ -104,8 +104,8 @@ export default function Page(context: any) {
                     </div>
                 ))} */}
 
-                {JSON.parse(rawResponses[index].structure).map((form: any) => (
-                    <div style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='mt-3  rounded-lg   px-4  py-3'>
+                {JSON.parse(rawResponses[index].structure).map((form: any, index: number) => (
+                    <div key={index} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='mt-3  rounded-lg   px-4  py-3'>
                         <p className='text-lg'>{form.title}</p>
                         {form.type === 'short-answer' &&
                             <div className='px-3'>
