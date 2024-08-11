@@ -33,7 +33,7 @@ export default function Page(context: any) {
         ).then((res) => {
             setRawResponses(res.documents[0].response)
             setLoading(false)
-            console.log(res)
+            // console.log(res)
         }).catch((e) => {
             setLoading(false)
             console.log(e)

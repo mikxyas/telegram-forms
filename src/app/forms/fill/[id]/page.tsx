@@ -100,7 +100,7 @@ export default function Fill(context: any) {
             }
         ).then((response) => {
             setFormAlreadyFilled(true)
-            console.log(response)
+            // console.log(response)
             toast({
                 title: 'Response Sumbitted',
             })
@@ -120,7 +120,7 @@ export default function Fill(context: any) {
                 Query.equal('form', id),
             ]
         ).then((response) => {
-            console.log(response)
+            // console.log(response)
             if (response.total == 1) {
                 // user has already submitted a response
                 setFormAlreadyFilled(true)
@@ -139,7 +139,7 @@ export default function Fill(context: any) {
                     '66a0bb9e0034dbfdde6d',
                     id,
                 ).then((response: any) => {
-                    console.log(response)
+                    // console.log(response)
                     setForm(JSON.parse(response.structure))
                     setSurvey(response)
                     setLoading(false)

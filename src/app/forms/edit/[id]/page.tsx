@@ -38,7 +38,7 @@ export default function EditForm(context: any) {
                 'description': form.description
             }
         ).then((response) => {
-            console.log(response)
+            // console.log(response)
             if (response) {
                 setUsersForms(usersForms.map((form: any) => {
                     if (form.$id == id) {
