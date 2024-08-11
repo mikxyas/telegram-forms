@@ -154,17 +154,37 @@ export default function FormsList({}: Props) {
                                     </div>
                                     : <div className='flex justify-between w-full'>
                                         <div className='flex'>
+                                            {survey.response.length > 3 &&
+                                                <div className='flex'>
+                                                    <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full' width={33} height={33} />
+                                                    <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full -ml-4' width={33} height={33} />
+                                                    <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full -ml-4' width={33} height={33} />
+                                                </div>
+                                            }
+                                            {survey.response.length == 2 &&
+                                                <div className='flex'>
+                                                    <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full' width={33} height={33} />
+                                                    <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full -ml-4' width={33} height={33} />
+                                                    {/* <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full -ml-4' width={33} height={33} /> */}
+                                                </div>
+                                            }
 
-                                            {survey.response.map((resp: any, index: number) => (
+                                            {survey.response.length == 1 &&
+                                                <div className='flex'>
+                                                    <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full' width={33} height={33} />
+                                                    {/* <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full -ml-4' width={33} height={33} /> */}
+                                                    {/* <Image src='/profile.webp' alt="Vercel Logo" className='rounded-full -ml-4' width={33} height={33} /> */}
+                                                </div>
+                                            }
+                                            {/* {survey.response.slice(0, 3).map((resp: any, index: number) => (
                                                 <div key={index}>
                                                     {resp?.profiles?.profile_pic == null
-                                                        ? <Image src='/profile.webp' alt="Vercel Logo" className={`rounded-full`} width={33} height={33} />
-                                                        : <Image src={resp.profiles.profile_pic} alt="Vercel Logo" className='rounded-full' width={33} height={33} />
-                                                    }
-                                                </div>
-                                            )
+                                                    ? <Image src='/profile.webp' alt="Default Profile Picture" className={`rounded-full`} width={33} height={33} />
+                                                    : <Image src={resp.profiles.profile_pic} alt="Profile Picture" className='rounded-full' width={33} height={33} />
+                                                }
+                                            </div>
+                                        ))} */}
 
-                                            )}
                                         </div>
                                         <Text tw=' flex gap-1 items-center self-end text-opacity-30' content={`${survey.response.length} responses`} />
                                     </div>
