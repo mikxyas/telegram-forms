@@ -93,7 +93,7 @@ export default function Page(context: any) {
     }
 
     return (
-        <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 flex flex-col pb-19'>
+        <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 flex flex-col pb-20'>
 
             <div className='px-3 mb-10'>
                 {/* <Text content='Response' tw='' /> */}
