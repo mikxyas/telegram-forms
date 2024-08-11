@@ -103,8 +103,8 @@ export default function FormsList({}: Props) {
 
     if(!scriptLoaded){
         return (
-            <div className=''>
-                Loading...
+            <div className='h-screen bg-transparent flex items-center justify-center'>
+                <Text content='...loading' tw='text-xl text-center mt-4' />
             </div>
         )
     }
@@ -117,13 +117,13 @@ export default function FormsList({}: Props) {
         </div>
     )
     // console.log(usersForms)
-    if (typeof usersForms == 'undefined') {
-        return (
-            <div className='h-screen flex items-center justify-center'>
-                <Text content='loading' tw='text-xl text-center mt-4' />
-            </div>
-        )
-    }
+    // if (typeof usersForms == 'undefined') {
+    //     return (
+    //         <div className='h-screen flex items-center justify-center'>
+    //             <Text content='loading' tw='text-xl text-center mt-4' />
+    //         </div>
+    //     )
+    // }
     if (usersForms.filter((form: any) => form.isArchived == false).length == 0) {
         return (
             <div className='h-screen flex items-center justify-center'>
