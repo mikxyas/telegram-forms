@@ -16,7 +16,7 @@ type Props = {}
 
 export default function EditForm(context: any) {
     const { id } = context.params
-    const [form, setForm] = React.useState([])
+    const [form, setForm] = React.useState<any>([])
     const [structure, setStructure] = React.useState([])
     const router = useRouter()
     const { toast } = useToast()
@@ -58,8 +58,8 @@ export default function EditForm(context: any) {
     }
 
     function handleFormTitleChange(id: number, title: string) {
-        setStructure((prevForms) => {
-            return prevForms.map((form) => {
+        setStructure((prevForms: any) => {
+            return prevForms.map((form: any) => {
                 if (form.id === id) {
                     return {
                         ...form,
@@ -72,8 +72,8 @@ export default function EditForm(context: any) {
     }
 
     function changeTypeOfForm(id: number, type: string) {
-        setStructure((prevForms) => {
-            return prevForms.map((form) => {
+        setStructure((prevForms: any) => {
+            return prevForms.map((form: any) => {
                 if (form.id === id) {
                     return {
                         ...form,
@@ -86,12 +86,12 @@ export default function EditForm(context: any) {
     }
 
     function handleOptionTitleChange(optionId: number, formId: number, title: string) {
-        setStructure((prevForms) => {
-            return prevForms.map((form) => {
+        setStructure((prevForms: any) => {
+            return prevForms.map((form: any) => {
                 if (form.id === formId) {
                     return {
                         ...form,
-                        options: form.options.map((option) => {
+                        options: form.options.map((option: any) => {
                             if (option.id === optionId) {
                                 return {
                                     ...option,
@@ -108,8 +108,8 @@ export default function EditForm(context: any) {
     }
 
     function addOption(id: number) {
-        setStructure((prevForms) => {
-            return prevForms.map((form) => {
+        setStructure((prevForms: any) => {
+            return prevForms.map((form: any) => {
                 if (form.id === id) {
                     return {
                         ...form,
@@ -129,12 +129,12 @@ export default function EditForm(context: any) {
     }
 
     function removeOption(optionId: number, formId: number) {
-        setStructure((prevForms) => {
-            return prevForms.map((form) => {
+        setStructure((prevForms: any) => {
+            return prevForms.map((form: any) => {
                 if (form.id === formId) {
                     return {
                         ...form,
-                        options: form.options.filter((option) => option.id !== optionId)
+                        options: form.options.filter((option: any) => option.id !== optionId)
                     }
                 }
                 return form
@@ -143,8 +143,8 @@ export default function EditForm(context: any) {
     }
 
     function updateIsRequired(id: number) {
-        setStructure((prevForms) => {
-            return prevForms.map((form) => {
+        setStructure((prevForms: any) => {
+            return prevForms.map((form: any) => {
                 if (form.id === id) {
                     return {
                         ...form,
@@ -157,6 +157,7 @@ export default function EditForm(context: any) {
     }
 
     function addForm() {
+        // @ts-ignore
         setStructure((prevForms) => {
             return [
                 ...prevForms,
@@ -178,8 +179,8 @@ export default function EditForm(context: any) {
     }
 
     function removeForm(id: number) {
-        setStructure((prevForms) => {
-            return prevForms.filter((form) => form.id !== id)
+        setStructure((prevForms: any) => {
+            return prevForms.filter((form: any) => form.id !== id)
         })
     }
 
@@ -201,7 +202,7 @@ export default function EditForm(context: any) {
                 Query.equal('$id', id),
                 Query.equal('creator', extractTelegramId())
             ]
-        ).then((response) => {
+        ).then((response: any) => {
             console.log(response)
             setForm(response.documents[0])
             setStructure(JSON.parse(response.documents[0].structure))
@@ -253,7 +254,7 @@ export default function EditForm(context: any) {
                 </div>
             </div>
 
-            {structure.map((form, index) => (
+            {structure.map((form: any, index) => (
                 <div key={form.$id} style={{ background: themeStore.secondary_bg_color }} className='mt-3  rounded-lg   px-4  py-3'>
                     {/* <p className='text-lg'>{form.title}</p> */}
                     <div className='flex justify-between'>
@@ -271,7 +272,7 @@ export default function EditForm(context: any) {
                         <div className='px-3 mt-3'>
                             {/* <input disabled type='text' className='border-b mt-3 mb-1 border-gray-300 outline-none bg-transparent rounded px-2 py-1 w-full ' placeholder='Multiple Choice' /> */}
                             <div>
-                                {form.options.map((option, index) => (
+                                {form.options.map((option: any, index: any) => (
                                     <div className='flex  mt-1 items-center ' key={index}>
                                         <div className='gap-1 flex'>
                                             <input type='checkbox' className='border-b  border-gray-300 outline-none bg-transparent rounded px-2 py-1  ' />

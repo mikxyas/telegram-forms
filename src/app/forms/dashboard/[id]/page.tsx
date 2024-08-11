@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react'
 
 
 
-export default function page(context: any) {
+export default function Page(context: any) {
     const id = context.params.id
     const [rawResponses, setRawResponses] = React.useState<any[]>([])
     const { themeStore, usersForms } = useStore(state => state)
@@ -121,7 +121,7 @@ export default function page(context: any) {
                             <div className='px-3 mt-3'>
                                 {/* <input disabled type='text' className='border-b mt-3 mb-1 border-gray-300 outline-none bg-transparent rounded px-2 py-1 w-full ' placeholder='Multiple Choice' /> */}
                                 <div>
-                                    {form.options.map((option, index) => (
+                                    {form.options.map((option: any, index: any) => (
                                         <div className='flex  mt-1 items-center ' key={index}>
                                             <div className='gap-1 flex'>
                                                 <input checked={option.ischecked} type='checkbox' className='border-b  border-gray-300 outline-none bg-transparent rounded px-2 py-1' />

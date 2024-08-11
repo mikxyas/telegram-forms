@@ -13,7 +13,7 @@ import React, { useEffect } from 'react'
 
 type Props = {}
 
-export default function ({ }: Props) {
+export default function Archive({ }: Props) {
 
     const { usersForms, setUsersForms, themeStore } = useStore(state => state)
     const router = useRouter()

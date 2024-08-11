@@ -19,7 +19,7 @@ export default function Fill(context: any) {
         title: 'Loading...',
         description: 'Loading...'
     })
-    const [response, setResponse] = useState({})
+    const [response, setResponse] = useState<any>({})
     const [formAlreadyFilled, setFormAlreadyFilled] = useState(false)
     const [formIsClosed, setFormIsClosed] = useState(false)
     const [modifyResponse, setModifyResponse] = useState(false)
@@ -221,7 +221,7 @@ export default function Fill(context: any) {
         <div style={{ background: window.Telegram.WebApp.themeParams.bg_color, color: window.Telegram.WebApp.themeParams.text_color }} className='py-2 min-h-screen px-2 flex flex-col pb-16'>
             <p className='text-2xl mb-1'>{survey.title}</p>
             <p className='text-sm opacity-55 mb-4'>{survey.description}</p>
-            {form.map((form, index) => (
+            {form.map((form: any, index) => (
                 <div key={form.id} style={{ background: window.Telegram.WebApp.themeParams.secondary_bg_color }} className='mt-3  rounded-lg   px-4  py-3'>
                     <p className='text-lg'>{form.title}</p>
                     {form.type === 'short-answer' &&
@@ -233,7 +233,7 @@ export default function Fill(context: any) {
                         <div className='px-3 mt-3'>
                             {/* <input disabled type='text' className='border-b mt-3 mb-1 border-gray-300 outline-none bg-transparent rounded px-2 py-1 w-full ' placeholder='Multiple Choice' /> */}
                             <div>
-                                {form.options.map((option, index) => (
+                                {form.options.map((option: any, index: any) => (
                                     <div className='flex  mt-1 items-center ' key={index}>
                                         <div className='gap-1 flex items-center cursor-pointer' onClick={() => updateMultipleChoice(form.id, option.id)}>
                                             <input checked={option.ischecked} type='checkbox' className='border-b  border-gray-300 outline-none bg-transparent rounded px-2 py-1' />

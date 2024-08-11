@@ -15,6 +15,7 @@ export default function CreateForm({ }: Props) {
 
     const router = useRouter()
     const { toast } = useToast()
+    const { themeStore } = useStore(state => state)
     const [forms, setForms] = useState([
         {
             id: 1,
@@ -294,7 +295,7 @@ export default function CreateForm({ }: Props) {
                     }
 
                     <div>
-                        <select title='Form Type' onChange={(e) => changeTypeOfForm(form.id, e.currentTarget.value)} value={form.type} style={{ background: window.Telegram.WebApp.themeParams.section_bg_color, }} className=' rounded px-2  py-3 w-full mt-3 mb-3'>
+                        <select title='Form Type' onChange={(e) => changeTypeOfForm(form.id, e.currentTarget.value)} value={form.type} style={{ background: themeStore.section_bg_color, }} className=' rounded px-2  py-3 w-full mt-3 mb-3'>
                             <option value='short-answer'>Short Answer</option>
                             <option value='multiple-choice'>Multiple Choice</option>
                             {/* <option value='number'>Number</option>
